@@ -1,0 +1,11 @@
+entity.milk_log.add_form:
+  route_name: entity.milk_log.add_form
+  title: 'Add milk log'
+  appears_on:
+    - entity.milk_log.collection
+    
+tesfana_dairy_farm.milk_log_export_action:
+  route_name: tesfana_dairy_farm.milk_log_export_csv
+  title: 'Export CSV'
+  appears_on:
+    - view.tesfana_milk_log.page_1

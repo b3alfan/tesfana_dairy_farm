@@ -1,0 +1,12 @@
+# web/modules/custom/tesfana_dairy_farm/config/schema/tesfana_dairy_farm.schema.yml
+
+tesfana_dairy_farm.settings:
+  type: config_object
+  label: 'Tesfana Dairy Farm settings'
+  mapping:
+    milk_price_per_liter:
+      type: float
+      label: 'Milk price per liter (Nakfa)'
+    currency:
+      type: string
+      label: 'Currency code (e.g., NKF)'

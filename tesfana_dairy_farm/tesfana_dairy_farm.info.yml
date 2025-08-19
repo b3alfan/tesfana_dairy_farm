@@ -1,0 +1,8 @@
+name: Tesfana Dairy Farm
+type: module
+description: 'Tesfana Dairy Farm management features (dashboard, logs, reports).'
+package: Tesfana
+core_version_requirement: ^10 || ^9
+version: 1.0.0
+dependencies: []  # keep empty for now; we’ll add real deps once features are in.
+

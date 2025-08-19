@@ -1,0 +1,18 @@
+<table class="log-list">
+  <thead>
+    <tr>
+      <th>{{ 'Timestamp'|t }}</th>
+      <th>{{ 'Quantity'|t }}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for log in logs %}
+      <tr>
+        <td>{{ log.get('timestamp').value|date('Y-m-d H:i') }}</td>
+        <td>{{ log.get('quantity').value }}</td>
+      </tr>
+    {% else %}
+      <tr><td colspan="2">{{ 'No entries found.'|t }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>

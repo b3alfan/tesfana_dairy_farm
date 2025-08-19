@@ -1,0 +1,161 @@
+<div class="tesfana-cow-profile">
+
+  <div class="profile-header">
+    <div>
+      <h2>🐄 {{ 'Cow:'|t }} {{ cow.label }}</h2>
+      <p class="subtitle">
+        {% if cow.tag %}{{ 'Tag:'|t }} {{ cow.tag }} · {% endif %}
+        {% if cow.status %}{{ 'Status:'|t }} {{ cow.status }}{% endif %}
+      </p>
+    </div>
+    <div class="actions-wrap">
+      {% if quick_actions %}
+        <div class="btn-group">
+          {% for a in quick_actions %}{{ a }}{% endfor %}
+        </div>
+      {% endif %}
+      <button class="tesfana-theme-toggle" type="button" data-theme-toggle>{{ 'Theme'|t }}</button>
+    </div>
+  </div>
+
+  {% if bcs.timestamp %}
+    <div class="bcs-callout">
+      <div class="bcs-label">{{ 'BCS'|t }}</div>
+      <div class="bcs-score">{{ bcs.score is not null ? bcs.score : '—' }}</div>
+      <div class="bcs-time">{{ bcs.timestamp|date('Y-m-d H:i') }}</div>
+    </div>
+  {% endif %}
+
+  <!-- Summary KPIs -->
+  <div class="kpis">
+    <div class="kpi"><div class="kpi-icon">🧮</div><div class="kpi-meta"><div class="kpi-label">{{ 'Milk (7d)'|t }}</div><div class="kpi-value">{{ kpis.milk_7d|number_format(2,'.',',') }} L</div></div></div>
+    <div class="kpi"><div class="kpi-icon">📅</div><div class="kpi-meta"><div class="kpi-label">{{ 'Milk (30d)'|t }}</div><div class="kpi-value">{{ kpis.milk_30d|number_format(2,'.',',') }} L</div></div></div>
+    <div class="kpi"><div class="kpi-icon">📈</div><div class="kpi-meta"><div class="kpi-label">{{ 'Avg Daily (30d)'|t }}</div><div class="kpi-value">{{ kpis.avg_daily_30d|number_format(2,'.',',') }} L</div></div></div>
+  </div>
+
+  <div class="tesfana-grid">
+    <!-- Production & Milk Quality -->
+    <div class="card">
+      <div class="card-head"><h3>{{ '1) Production & Milk Quality'|t }}</h3></div>
+
+      <h4>{{ 'Milk — Past 30 Weeks'|t }}</h4>
+      <div id="cow-milk-chart" class="chart-box" data-chart="cow-milk"></div>
+      {% if charts.milkWeekly.values is empty %}
+        <div class="no-data">{{ 'No milk data found for this cow.'|t }}</div>
+      {% endif %}
+
+      <h4>{{ 'Daily Yield (last 14 days)'|t }}</h4>
+      {% if production.days %}
+        <table class="tesfana-table">
+          <thead><tr><th>{{ 'Date'|t }}</th><th>{{ 'Total (L)'|t }}</th><th>{{ 'Per milking'|t }}</th></tr></thead>
+          <tbody>
+          {% for d in production.days %}
+            <tr>
+              <td>{{ d.date }}</td>
+              <td>{{ d.total|number_format(2,'.',',') }}</td>
+              <td>
+                {% if d.per_milking %}
+                  {{ d.per_milking|join(' + ') }}
+                {% else %}
+                  —
+                {% endif %}
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="no-data">{{ 'No recent daily milk logs.'|t }}</div>
+      {% endif %}
+
+      <h4>{{ 'Milk components'|t }}</h4>
+      <div class="kpis" style="grid-template-columns: repeat(3,minmax(0,1fr));">
+        <div class="kpi"><div class="kpi-icon">🧈</div><div class="kpi-meta"><div class="kpi-label">{{ 'Fat %'|t }}</div><div class="kpi-value">{{ quality.fat.value is not null ? quality.fat.value|number_format(2,'.',',') ~ '%' : '—' }}</div></div></div>
+        <div class="kpi"><div class="kpi-icon">🥛</div><div class="kpi-meta"><div class="kpi-label">{{ 'Protein %'|t }}</div><div class="kpi-value">{{ quality.protein.value is not null ? quality.protein.value|number_format(2,'.',',') ~ '%' : '—' }}</div></div></div>
+        <div class="kpi"><div class="kpi-icon">🧫</div><div class="kpi-meta"><div class="kpi-label">{{ 'SCC'|t }}</div><div class="kpi-value">{{ quality.scc.value is not null ? quality.scc.value|number_format(0,'.',',') : '—' }}</div></div></div>
+      </div>
+    </div>
+
+    <!-- Reproductive Performance -->
+    <div class="card">
+      <div class="card-head"><h3>{{ '2) Reproductive Performance'|t }}</h3></div>
+      <table class="tesfana-table">
+        <tbody>
+          <tr><td>{{ 'First-service conception'|t }}</td><td>{{ repro.first_service_conception is same as(true) ? '✔️' : (repro.first_service_conception is same as(false) ? '❌' : '—') }}</td></tr>
+          <tr><td>{{ 'Pregnancy rate (proxy)'|t }}</td><td>{{ repro.pregnancy_rate_proxy is not null ? (repro.pregnancy_rate_proxy*100)|number_format(0) ~ '%' : '—' }}</td></tr>
+          <tr><td>{{ 'Heat detections (90d)'|t }}</td><td>{{ repro.heat_detection_count_90d ?? '—' }}</td></tr>
+          <tr><td>{{ 'Days open'|t }}</td><td>{{ repro.days_open ?? '—' }}</td></tr>
+          <tr><td>{{ 'Services per conception'|t }}</td><td>{{ repro.services_per_conception ?? '—' }}</td></tr>
+          <tr><td>{{ 'Calving interval (days)'|t }}</td><td>{{ repro.calving_interval_days ?? '—' }}</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Health & Disease Monitoring -->
+    <div class="card">
+      <div class="card-head"><h3>{{ '3) Health & Disease Monitoring'|t }}</h3></div>
+      <table class="tesfana-table">
+        <tbody>
+          <tr><td>{{ 'Mastitis cases (12m)'|t }}</td><td>{{ health.mastitis_count }}</td></tr>
+          <tr><td>{{ 'Lameness cases (12m)'|t }}</td><td>{{ health.lameness_count }}</td></tr>
+          <tr><td>{{ 'Treatments (12m)'|t }}</td><td>{{ health.treatments_count }}</td></tr>
+          <tr><td>{{ 'Vet cost (12m)'|t }}</td><td>{{ health.vet_cost|number_format(2,'.',',') }}</td></tr>
+          <tr><td>{{ 'Cull status'|t }}</td><td>{{ health.culled ? '❌ ' ~ 'Culled'|t : '✔️ ' ~ 'Active'|t }}</td></tr>
+        </tbody>
+      </table>
+
+      <h4>{{ 'Vaccination History'|t }}</h4>
+      {% if vaccinations %}
+        <table class="tesfana-table">
+          <thead><tr><th>{{ 'Date'|t }}</th><th>{{ 'Record'|t }}</th></tr></thead>
+          <tbody>
+            {% for v in vaccinations %}<tr><td>{{ v.date }}</td><td>{{ v.title }}</td></tr>{% endfor %}
+          </tbody>
+        </table>
+      {% else %}
+        <div class="no-data">{{ 'No vaccinations recorded.'|t }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Feeding & Efficiency -->
+    <div class="card">
+      <div class="card-head"><h3>{{ '4) Feeding & Efficiency'|t }}</h3></div>
+      <table class="tesfana-table">
+        <tbody>
+          <tr><td>{{ 'DMI (kg/day, 30d avg)'|t }}</td><td>{{ feeding.dmi_kg_per_day is not null ? feeding.dmi_kg_per_day|number_format(2,'.',',') : '—' }}</td></tr>
+          <tr><td>{{ 'Feed cost (30d total)'|t }}</td><td>{{ feeding.feed_cost_total|number_format(2,'.',',') }}</td></tr>
+          <tr><td>{{ 'Feed efficiency (L/kg DM)'|t }}</td><td>{{ feeding.feed_efficiency_l_per_kgdm is not null ? feeding.feed_efficiency_l_per_kgdm|number_format(3,'.',',') : '—' }}</td></tr>
+          <tr><td>{{ 'Age at first calving (days)'|t }}</td><td>{{ feeding.age_first_calving_days ?? '—' }}</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Behavioral & Sensor-Based Insights -->
+    <div class="card">
+      <div class="card-head"><h3>{{ '5) Behavioral & Sensor-Based Insights'|t }}</h3></div>
+      <table class="tesfana-table">
+        <tbody>
+          <tr><td>{{ 'Rumination (avg, 7d)'|t }}</td><td>{{ behavior.rumination is not null ? behavior.rumination|number_format(2,'.',',') : '—' }}</td></tr>
+          <tr><td>{{ 'Feeding (avg, 7d)'|t }}</td><td>{{ behavior.feeding is not null ? behavior.feeding|number_format(2,'.',',') : '—' }}</td></tr>
+          <tr><td>{{ 'Activity (avg, 7d)'|t }}</td><td>{{ behavior.activity is not null ? behavior.activity|number_format(2,'.',',') : '—' }}</td></tr>
+          <tr><td>{{ 'Lying time (avg, 7d)'|t }}</td><td>{{ behavior.lying is not null ? behavior.lying|number_format(2,'.',',') : '—' }}</td></tr>
+        </tbody>
+      </table>
+      <div class="no-data" style="margin-top:.5rem;">{{ 'RFID/wearable integration can refine these metrics when available.'|t }}</div>
+    </div>
+
+    <!-- Financial & Benchmarking -->
+    <div class="card">
+      <div class="card-head"><h3>{{ '6) Financial & Benchmarking'|t }}</h3></div>
+      <table class="tesfana-table">
+        <tbody>
+          <tr><td>{{ 'Revenue per day'|t }}</td><td>{{ finance.currency }} {{ finance.revenue_per_day|number_format(2,'.',',') }}</td></tr>
+          <tr><td>{{ 'Revenue minus feed per day'|t }}</td><td>{{ finance.currency }} {{ finance.revenue_minus_feed_per_day|number_format(2,'.',',') }}</td></tr>
+          <tr><td>{{ 'This cow — avg L/day'|t }}</td><td>{{ finance.cow_avg_l_per_day|number_format(2,'.',',') }}</td></tr>
+          <tr><td>{{ 'Herd avg L/day (per cow)'|t }}</td><td>{{ finance.herd_avg_l_per_day|number_format(2,'.',',') }}</td></tr>
+          <tr><td>{{ 'Δ vs herd (L/day)'|t }}</td><td>{{ finance.benchmark_delta_l_per_day|number_format(2,'.',',') }}</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

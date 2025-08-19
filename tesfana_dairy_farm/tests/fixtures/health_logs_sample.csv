@@ -1,0 +1,6 @@
+date,cow_tag,treatment,outcome
+2025-08-01,COW-1,deworming,ok
+2025-08-02,COW-2,vaccination,ok
+2025-08-03,COW-3,hoof trim,ok
+2025-08-04,COW-4,antibiotics,improved
+2025-08-05,COW-5,vitamin shot,ok

@@ -1,0 +1,55 @@
+<?php
+
+/**
+ * @file
+ * Tesfana Dairy Farm module hooks.
+ */
+
+/**
+ * Implements hook_page_attachments().
+ *
+ * Attach the service worker registrar to every page.
+ */
+function tesfana_dairy_farm_page_attachments(array &$attachments): void {
+  $attachments['#attached']['library'][] = 'tesfana_dairy_farm/sw_register';
+}
+
+/**
+ * Implements hook_theme().
+ */
+function tesfana_dairy_farm_theme($existing, $type, $theme, $path): array {
+  return [
+    // Dashboard template hook.
+    'tesfana_dashboard' => [
+      'variables' => [
+        'kpis' => [],
+        'add_cow_url' => NULL,
+        'settings_url' => NULL,
+        'notices' => [],
+        'log_milk_url' => NULL,
+        'bcs_url' => NULL,
+        'milk_tests_url' => NULL,
+        'milk_csv_url' => NULL,
+        'quickbooks_csv_url' => NULL,
+        'task_add_url' => NULL,
+        'tasks' => [],
+      ],
+      'template' => 'dashboard',
+      'path' => $path . '/templates',
+    ],
+
+    // Cow profile template hook.
+    'cow_profile' => [
+      'variables' => [
+        'cow' => [],
+        'kpis' => [],
+        'charts' => [],
+        'vaccinations' => [],
+        'bcs' => [],
+        'quick_actions' => [],
+      ],
+      'template' => 'cow-profile',
+      'path' => $path . '/templates',
+    ],
+  ];
+}

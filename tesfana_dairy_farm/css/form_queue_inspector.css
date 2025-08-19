@@ -1,0 +1,71 @@
+/* Inspector table */
+.fqi-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+.fqi-table th, .fqi-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  vertical-align: top;
+}
+.fqi-table th {
+  background: #f6f6f6;
+  text-align: left;
+}
+.fqi-key code { font-size: 0.9rem; }
+.fqi-preview pre {
+  max-height: 260px;
+  overflow: auto;
+  margin: 0.25rem 0 0;
+  background: #fafafa;
+  border: 1px solid #eee;
+  padding: 6px;
+  border-radius: 4px;
+}
+.fqi-actions button {
+  margin: 0 0.25rem 0.25rem 0;
+}
+.fqi-empty { opacity: 0.75; }
+
+/* Top action buttons */
+.fqi-actions { margin-top: 0.5rem; }
+.fqi-actions button {
+  padding: 6px 10px;
+  border: 1px solid #ccc;
+  background: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.fqi-actions button:hover { background: #f3f3f3; }
+
+/* Floating toolbar badge */
+#tesfana-queue-badge {
+  position: fixed;
+  top: 10px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #111;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 16px;
+  text-decoration: none;
+  z-index: 9999;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  font: 600 12px/1 sans-serif;
+  opacity: 0.92;
+}
+#tesfana-queue-badge .fqb-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #e53935;
+}
+#tesfana-queue-badge .fqb-count {
+  min-width: 14px;
+  text-align: center;
+}
+@media print {
+  #tesfana-queue-badge { display: none !important; }
+}

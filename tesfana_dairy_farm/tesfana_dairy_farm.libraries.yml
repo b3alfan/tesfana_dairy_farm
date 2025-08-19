@@ -1,0 +1,42 @@
+ui:
+  css:
+    theme:
+      css/ui.css: {}
+  js:
+    js/form_queue_badge.js: {}
+  dependencies:
+    - core/drupal
+
+charts:
+  js:
+    js/charts.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+
+dashboard_ui:
+  css:
+    theme:
+      css/dashboard.css: {}
+  dependencies:
+    - core/drupal
+
+dashboard_calendar:
+  js:
+    js/calendar.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+
+quick_form_ui:
+  js:
+    js/quick_milk.js: {}
+  dependencies:
+    - core/drupal
+
+sw_register:
+  js:
+    js/sw-register.js: {}
+  dependencies:
+    - core/drupal
+

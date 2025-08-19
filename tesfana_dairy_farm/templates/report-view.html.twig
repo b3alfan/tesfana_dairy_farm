@@ -1,0 +1,36 @@
+<div class="tesfana-reports">
+  <div class="tesfana-header">
+    <div class="title-wrap">
+      <h2>📈 {{ 'Tesfana Reports'|t }}</h2>
+      <p class="subtitle">{{ 'Analyze milk output and export CSV'|t }}</p>
+    </div>
+
+    <div class="actions-wrap">
+      <form method="get" class="filters">
+        <label>
+          {{ 'Last'|t }}
+          <select name="days" onchange="this.form.submit()">
+            {% set options = [7, 14, 30, 60, 90, 180, 365] %}
+            {% for d in options %}
+              <option value="{{ d }}" {{ d == data.filters.days ? 'selected' : '' }}>{{ d }}</option>
+            {% endfor %}
+          </select>
+          {{ 'days'|t }}
+        </label>
+        <noscript><button class="btn btn-outline">{{ 'Apply'|t }}</button></noscript>
+      </form>
+      <a class="btn btn-outline" href="{{ data.filters.export_url }}">{{ 'Export CSV'|t }}</a>
+      <button class="tesfana-theme-toggle" type="button" data-theme-toggle>{{ 'Theme'|t }}</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h3>{{ 'Milk Output Over Time'|t }}</h3>
+    </div>
+    <div id="report-milk-chart" class="chart-box" data-chart="report-milk"></div>
+    {% if data.series is empty %}
+      <div class="no-data">{{ 'No data for this range.'|t }}</div>
+    {% endif %}
+  </div>
+</div>

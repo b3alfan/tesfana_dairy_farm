@@ -1,0 +1,140 @@
+tesfana_dairy_farm.dashboard:
+  path: '/admin/tesfana_dairy/dashboard'
+  defaults:
+    _controller: '\Drupal\tesfana_dairy_farm\Controller\DashboardController::view'
+    _title: 'Tesfana Dashboard'
+  requirements:
+    _permission: 'view tesfana dashboard'
+
+tesfana_dairy_farm.settings:
+  path: '/admin/config/tesfana_dairy/settings'
+  defaults:
+    _form: '\Drupal\tesfana_dairy_farm\Form\SettingsForm'
+    _title: 'Tesfana Settings'
+  requirements:
+    _permission: 'administer tesfana dairy farm'
+
+tesfana_dairy_farm.cows:
+  path: '/admin/tesfana_dairy/cows'
+  defaults:
+    _controller: '\Drupal\tesfana_dairy_farm\Controller\CowListController::list'
+    _title: 'Cows'
+  requirements:
+    _permission: 'view tesfana cow list'
+
+tesfana_dairy_farm.cow_profile:
+  path: '/admin/tesfana_dairy/cow/{asset}'
+  defaults:
+    _controller: '\Drupal\tesfana_dairy_farm\Controller\CowProfileController::view'
+    _title_callback: '\Drupal\tesfana_dairy_farm\Controller\CowProfileController::title'
+  requirements:
+    _permission: 'view tesfana cow profiles'
+  options:
+    parameters:
+      asset:
+        type: entity:asset
+
+tesfana_dairy_farm.milk_logs:
+  path: '/admin/tesfana_dairy/milk-logs'
+  defaults:
+    _controller: '\Drupal\tesfana_dairy_farm\Controller\ManagePagesController::milkLogs'
+    _title: 'Milk Logs'
+  requirements:
+    _permission: 'view tesfana dashboard'
+
+tesfana_dairy_farm.bcs:
+  path: '/admin/tesfana_dairy/bcs'
+  defaults:
+    _controller: '\Drupal\tesfana_dairy_farm\Controller\ManagePagesController::bcs'
+    _title: 'Body Condition Scores'
+  requirements:
+    _permission: 'view tesfana dashboard'
+
+tesfana_dairy_farm.milk_tests:
+  path: '/admin/tesfana_dairy/milk-tests'
+  defaults:
+    _controller: '\Drupal\tesfana_dairy_farm\Controller\ManagePagesController::milkTests'
+    _title: 'Milk Quality Tests'
+  requirements:
+    _permission: 'view tesfana dashboard'
+
+tesfana_dairy_farm.bcs_quick_add:
+  path: '/admin/tesfana_dairy/bcs/add'
+  defaults:
+    _form: '\Drupal\tesfana_dairy_farm\Form\BcsQuickForm'
+    _title: 'Record BCS'
+  requirements:
+    _permission: 'use tesfana quick forms'
+
+tesfana_dairy_farm.milk_test_quick_add:
+  path: '/admin/tesfana_dairy/milk-test/add'
+  defaults:
+    _form: '\Drupal\tesfana_dairy_farm\Form\MilkQualityForm'
+    _title: 'Record Milk Quality Test'
+  requirements:
+    _permission: 'use tesfana quick forms'
+
+tesfana_dairy_farm.task_quick_form:
+  path: '/admin/tesfana_dairy/task/add'
+  defaults:
+    _form: '\Drupal\tesfana_dairy_farm\Form\TaskQuickForm'
+    _title: 'Add Task'
+  requirements:
+    _permission: 'use tesfana quick forms'
+
+tesfana_dairy_farm.task_seeder:
+  path: '/admin/tesfana_dairy/task/seed'
+  defaults:
+    _form: '\Drupal\tesfana_dairy_farm\Form\TaskSeederForm'
+    _title: 'Seed Tasks'
+  requirements:
+    _permission: 'administer tesfana dairy farm'
+
+tesfana_dairy_farm.form_queue_inspector:
+  path: '/admin/tesfana_dairy/form-queue-inspector'
+  defaults:
+    _controller: '\Drupal\tesfana_dairy_farm\Controller\FormQueueInspectorController::view'
+    _title: 'Form Queue Inspector'
+  requirements:
+    _permission: 'use form queue inspector'
+
+tesfana_dairy_farm.service_worker:
+  path: '/sw.js'
+  defaults:
+    _controller: '\Drupal\tesfana_dairy_farm\Controller\ServiceWorkerController::js'
+  requirements:
+    _permission: 'access content'
+
+tesfana_dairy_farm.milk_quick_add:
+  path: '/milk/quick-add'
+  defaults:
+    _form: '\Drupal\tesfana_dairy_farm\Form\QuickMilkLogForm'
+    _title: 'Quick Milk Log'
+  requirements:
+    _permission: 'access content'
+
+tesfana_dairy_farm.milk_log_export_csv:
+  path: '/milk/export/csv'
+  defaults:
+    _controller: '\Drupal\tesfana_dairy_farm\Controller\MilkExportController::exportMilkCsv'
+    _title: 'Milk Logs CSV'
+  requirements:
+    _permission: 'access content'
+
+tesfana_dairy_farm.quickbooks_export_csv:
+  path: '/milk/export/quickbooks-csv'
+  defaults:
+    _controller: '\Drupal\tesfana_dairy_farm\Controller\MilkExportController::exportQuickBooksCsv'
+    _title: 'Milk Logs QuickBooks CSV'
+  requirements:
+    _permission: 'access content'
+
+tesfana_dairy_farm.milk_logs_alias:
+  path: '/admin/tesfana-dairy/milk-log'
+  defaults:
+    _controller: '\Drupal\tesfana_dairy_farm\Controller\ManagePagesController::milkLogs'
+    _title: 'Milk Logs'
+  requirements:
+    _permission: 'view tesfana dashboard'
+  options:
+    _admin_route: TRUE

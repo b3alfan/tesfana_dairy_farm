@@ -1,0 +1,52 @@
+# web/modules/custom/tesfana_dairy_farm/tesfana_dairy_farm.links.menu.yml
+
+tesfana_dairy_farm.settings.menu:
+  title: 'Tesfana settings'
+  description: 'Pricing and calculation options.'
+  route_name: tesfana_dairy_farm.settings
+  parent: system.admin_config_services
+  weight: 10
+
+tesfana_dairy_farm.cow_list.menu:
+  title: 'Cows'
+  description: 'List of cows with links to profiles.'
+  route_name: tesfana_dairy_farm.cows
+  parent: system.admin_content
+  weight: -98
+
+tesfana_dairy_farm.milk_quick_form.menu:
+  title: 'Quick Milk Entry'
+  route_name: tesfana_dairy_farm.milk_quick_add
+  parent: system.admin_content
+  weight: -97
+
+tesfana_dairy_farm.bcs_quick_form.menu:
+  title: 'Record BCS'
+  route_name: tesfana_dairy_farm.bcs_quick_add
+  parent: system.admin_content
+  weight: -96
+
+tesfana_dairy_farm.milk_quality_form.menu:
+  title: 'Record Milk Quality'
+  route_name: tesfana_dairy_farm.milk_test_quick_add
+  parent: system.admin_content
+  weight: -95
+
+tesfana_dairy_farm.task_quick_form.menu:
+  title: 'Add Task'
+  route_name: tesfana_dairy_farm.task_quick_form
+  parent: system.admin_content
+  weight: -94
+
+tesfana_dairy_farm.task_seeder.menu:
+  title: 'Seed Tasks'
+  route_name: tesfana_dairy_farm.task_seeder
+  parent: system.admin_content
+  weight: -93
+
+tesfana_dairy_farm.form_queue_inspector_menu:
+  title: 'Form Queue Inspector'
+  description: 'View and manage offline form queue entries in your browser.'
+  route_name: tesfana_dairy_farm.form_queue_inspector
+  parent: system.admin_content
+  weight: 20

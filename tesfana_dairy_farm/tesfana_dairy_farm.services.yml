@@ -1,0 +1,49 @@
+services:
+  tesfana_dairy_farm.data:
+    class: 'Drupal\tesfana_dairy_farm\Service\TesfanaData'
+    arguments:
+      - '@entity_type.manager'
+      - '@date.formatter'
+      - '@logger.factory'
+
+  tesfana_dairy_farm.scheduler:
+    class: 'Drupal\tesfana_dairy_farm\Service\TaskScheduler'
+    arguments:
+      - '@entity_type.manager'
+
+  tesfana_dairy_farm.breeding_reminder_service:
+    class: 'Drupal\tesfana_dairy_farm\Service\BreedingReminderService'
+    factory: ['Drupal\tesfana_dairy_farm\Service\BreedingReminderService', 'create']
+    arguments:
+      - '@database'
+      - '@cache.default'
+
+  tesfana_dairy_farm.chart_snapshot_service:
+    class: 'Drupal\tesfana_dairy_farm\Service\ChartSnapshotService'
+    arguments:
+      - '@entity_type.manager'
+      - '@logger.channel.tesfana_dairy_farm'
+
+  tesfana_dairy_farm_drush_chart_snapshot_command:
+    class: 'Drupal\tesfana_dairy_farm\Drush\Commands\ChartSnapshotCommands'
+    arguments:
+      - '@tesfana_dairy_farm.chart_snapshot_service'
+    tags:
+      - { name: 'drush.command' }
+
+  tesfana_dairy_farm.task_planner:
+    class: 'Drupal\tesfana_dairy_farm\Service\TaskPlannerService'
+    arguments:
+      - '@datetime.time'
+
+  tesfana_dairy_farm.task_store:
+    class: 'Drupal\tesfana_dairy_farm\Service\TaskStoreService'
+    arguments:
+      - '@database'
+      - '@logger.channel.tesfana_dairy_farm'
+
+  logger.channel.tesfana_dairy_farm:
+    parent: 'logger.channel_base'
+    arguments:
+      - 'tesfana_dairy_farm'
+

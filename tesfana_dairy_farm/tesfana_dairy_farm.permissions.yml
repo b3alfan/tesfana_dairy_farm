@@ -1,0 +1,20 @@
+# web/modules/custom/tesfana_dairy_farm/tesfana_dairy_farm.permissions.yml
+
+administer tesfana dairy farm:
+  title: 'Administer Tesfana Dairy Farm'
+  description: 'Configure settings and seeding utilities.'
+
+view tesfana dashboard:
+  title: 'View Tesfana Dashboard and Reports'
+
+use tesfana quick forms:
+  title: 'Use Tesfana quick data entry forms (milk, BCS, tasks)'
+
+view tesfana cow list:
+  title: 'View cow list'
+
+view tesfana cow profiles:
+  title: 'View cow profiles'
+
+use form queue inspector:
+  title: 'Use the Form Queue Inspector page'

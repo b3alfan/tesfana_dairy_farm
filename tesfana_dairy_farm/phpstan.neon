@@ -1,0 +1,10 @@
+includes:
+  - vendor/mglaman/phpstan-drupal/extension.neon
+
+parameters:
+  level: 6
+  paths:
+    - web/modules/custom/tesfana_dairy_farm
+  checkGenericClassInNonGenericObjectType: false
+  ignoreErrors:
+    - '#Undefined variable: drupalSettings#'

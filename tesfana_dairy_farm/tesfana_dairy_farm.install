@@ -1,0 +1,104 @@
+<?php
+
+/**
+ * @file
+ * Install and update hooks for Tesfana Dairy Farm.
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function tesfana_dairy_farm_schema() {
+  $schema['tesfana_task'] = [
+    'description' => 'Stores user-created operational tasks for the dashboard calendar.',
+    'fields' => [
+      'id' => [
+        'type' => 'serial',
+        'not null' => TRUE,
+      ],
+      'title' => [
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+      ],
+      'due_ts' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+        'description' => 'UTC timestamp when the task is due.',
+      ],
+      'category' => [
+        'type' => 'varchar',
+        'length' => 32,
+        'not null' => TRUE,
+        'default' => 'other',
+      ],
+      'priority' => [
+        'type' => 'varchar',
+        'length' => 16,
+        'not null' => TRUE,
+        'default' => 'normal',
+      ],
+      'created' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+      'changed' => [
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ],
+    ],
+    'primary key' => ['id'],
+    'indexes' => [
+      'due_ts' => ['due_ts'],
+      'category' => ['category'],
+    ],
+  ];
+
+  return $schema;
+}
+
+/**
+ * Create the tesfana_task table on update if it does not exist (first pass).
+ */
+function tesfana_dairy_farm_update_9001() {
+  $schema = \Drupal::database()->schema();
+  if (!$schema->tableExists('tesfana_task')) {
+    $schema->createTable('tesfana_task', [
+      'description' => 'Stores user-created operational tasks for the dashboard calendar.',
+      'fields' => [
+        'id' => ['type' => 'serial', 'not null' => TRUE],
+        'title' => ['type' => 'varchar', 'length' => 255, 'not null' => TRUE],
+        'due_ts' => ['type' => 'int', 'not null' => TRUE, 'default' => 0],
+        'category' => ['type' => 'varchar', 'length' => 32, 'not null' => TRUE, 'default' => 'other'],
+        'priority' => ['type' => 'varchar', 'length' => 16, 'not null' => TRUE, 'default' => 'normal'],
+        'created' => ['type' => 'int', 'not null' => TRUE, 'default' => 0],
+        'changed' => ['type' => 'int', 'not null' => TRUE, 'default' => 0],
+      ],
+      'primary key' => ['id'],
+      'indexes' => [
+        'due_ts' => ['due_ts'],
+        'category' => ['category'],
+      ],
+    ]);
+  }
+}
+
+/**
+ * Safety net: re-run creation if previous update didn’t run (e.g., cache issues).
+ */
+function tesfana_dairy_farm_update_9002() {
+  tesfana_dairy_farm_update_9001();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function tesfana_dairy_farm_uninstall() {
+  $schema = \Drupal::database()->schema();
+  if ($schema->tableExists('tesfana_task')) {
+    $schema->dropTable('tesfana_task');
+  }
+}

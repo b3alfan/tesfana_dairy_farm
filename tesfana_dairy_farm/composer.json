@@ -1,0 +1,24 @@
+{
+  "name": "tesfana/tesfana_dairy_farm",
+  "description": "Tesfana Dairy Farm custom module.",
+  "type": "drupal-module",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": "^8.1"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^10.5 || ^9.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "Drupal\\tesfana_dairy_farm\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Drupal\\Tests\\tesfana_dairy_farm\\": "tests/src/"
+    }
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
